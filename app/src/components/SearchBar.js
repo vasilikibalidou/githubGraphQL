@@ -77,8 +77,8 @@ export default class SearchBar extends Component {
                   }
                 `,
         variables: {
-          username: this.state.search.split("/")[0].trim(),
-          repo: this.state.search.split("/")[1].trim()
+          username: this.state.search.split("/")[0]?.trim(),
+          repo: this.state.search.split("/")[1]?.trim()
         }
       })
     })
@@ -89,11 +89,6 @@ export default class SearchBar extends Component {
           this.state.search.split("/")[1],
           res.data?.repositoryOwner?.repository
         )
-      })
-      .then(() => {
-        this.setState({
-          search: ""
-        });
       })
   };
 
@@ -109,7 +104,7 @@ export default class SearchBar extends Component {
           value={this.state.search}
           onChange={this.handleChange}
         />
-        <Button type="submit">Submit</Button>
+        <Button type="submit">Search</Button>
       </Form>
     );
   }
