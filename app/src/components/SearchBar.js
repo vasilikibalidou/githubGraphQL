@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import styled from "styled-components";
 
 const Form = styled.form`
-  padding: 50px;
+  padding: 10vh 0 5vh 0;
 `;
 
 const Input = styled.input`
@@ -24,44 +24,44 @@ const Button = styled.button`
 const accessToken = process.env.REACT_APP_TOKEN;
 
 export default class SearchBar extends Component {
-    state = {
-        search: "",
-    };
+  state = {
+    search: ""
+  };
 
-    handleChange = event => {
-        this.setState({
-            [event.target.name]: event.target.value
-        });
-    };
+  handleChange = event => {
+    this.setState({
+      [event.target.name]: event.target.value
+    });
+  };
 
-    handleSubmit = event => {
-        event.preventDefault();
-        fetch("https://api.github.com/graphql", {
-            method: "POST",
-            headers: {
-                Authorization: `bearer ${accessToken}`
-            },
-            body: JSON.stringify({
-                query: `
-                { 
-                    repositoryOwner(login:"eveporcello"){
+  handleSubmit = event => {
+    event.preventDefault();
+    fetch("https://api.github.com/graphql", {
+      method: "POST",
+      headers: {
+        Authorization: `bearer ${accessToken}`
+      },
+      body: JSON.stringify({
+        query: `
+                query($username: String!, $repo: String!){ 
+                    repositoryOwner(login:$username){
                       login
-                      repository(name:"graph-ql-testing"){
+                      repository(name:$repo){
                         name
-                        pullRequests(first:10){
+                        pullRequests(first:20){
                           edges{
                             node{
                               title
                             }
                           }
                         }
-                        issues(first:10){
+                        issues(first:20){
                           edges{
                             node{
                               id
                               state
                               bodyText
-                              comments(first:10){
+                              comments(first:20){
                                 edges{
                                   node{
                                     bodyText
@@ -75,33 +75,42 @@ export default class SearchBar extends Component {
                       }
                     }
                   }
-                `
-            })
-        })
-            .then(res => res.json())
-            .then(res => {
-                this.props.updateFields(
-                    this.state.search.split("/")[0],
-                    this.state.search.split("/")[1],
-                    res?.data.repositoryOwner.repository
-                );
-            })
-    };
+                `,
+        variables: {
+          username: this.state.search.split("/")[0].trim(),
+          repo: this.state.search.split("/")[1].trim()
+        }
+      })
+    })
+      .then(res => res.json())
+      .then(res => {
+        this.props.updateFields(
+          this.state.search.split("/")[0],
+          this.state.search.split("/")[1],
+          res.data?.repositoryOwner?.repository
+        )
+      })
+      .then(() => {
+        this.setState({
+          search: ""
+        });
+      })
+  };
 
-    render() {
-        console.log("search state: ", this.state)
-        return (
-            <Form onSubmit={this.handleSubmit}>
-                <Input
-                    type="text"
-                    id="search"
-                    name="search"
-                    placeholder="username/repo"
-                    value={this.state.search}
-                    onChange={this.handleChange}
-                />
-                <Button type="submit">Submit</Button>
-            </Form>
-        );
-    }
+  render() {
+    console.log(this.props)
+    return (
+      <Form onSubmit={this.handleSubmit}>
+        <Input
+          type="text"
+          id="search"
+          name="search"
+          placeholder="username/repo"
+          value={this.state.search}
+          onChange={this.handleChange}
+        />
+        <Button type="submit">Submit</Button>
+      </Form>
+    );
+  }
 }

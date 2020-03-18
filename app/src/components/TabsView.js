@@ -7,8 +7,18 @@ const TabBar = styled(TabList)`
   list-style-type: none;
   display: flex;
   justify-content: space-around;
-  font-size: 1.5em;
+  font-size: 2em;
   font-weight: bold;
+  padding: 2vh;
+`;
+
+const Result = styled.div`
+    padding: 1.5vh;
+    font-size: 1.5em;
+`;
+
+const StyledLink = styled(Link)`
+    text-decoration: none;
 `;
 
 export default class TabsView extends Component {
@@ -24,16 +34,16 @@ export default class TabsView extends Component {
 
                 <TabPanel>
                     {this.props.state.data?.pullRequests.edges.map((val, i) => {
-                        return (
-                            <p key={i}>{val.node.title}</p>
-                        )
+                        return <Result key={i}>{val.node.title}</Result>
                     })}
                 </TabPanel>
                 <TabPanel>
                     {this.props.state.data?.issues.edges.map((val, i) => {
                         if (val.node.state === "OPEN") {
                             return (
-                                <Link to={`/${val.node.id}`} key={i}>{val.node.bodyText}</Link>
+                                <Result key={i}>
+                                    <StyledLink to={`/${val.node.id}`}>{val.node.bodyText}</StyledLink>
+                                </Result>
                             )
                         }
                     })}
@@ -42,7 +52,9 @@ export default class TabsView extends Component {
                     {this.props.state.data?.issues.edges.map((val, i) => {
                         if (val.node.state === "CLOSED") {
                             return (
-                                <Link to={`/${val.node.id}`} key={i}>{val.node.bodyText}</Link>
+                                <Result key={i}>
+                                    <StyledLink to={`/${val.node.id}`}>{val.node.bodyText}</StyledLink>
+                                </Result>
                             )
                         }
                     })}
