@@ -25,7 +25,7 @@ const accessToken = process.env.REACT_APP_TOKEN;
 
 export default class SearchBar extends Component {
     state = {
-        search: ""
+        search: "",
     };
 
     handleChange = event => {
@@ -34,10 +34,10 @@ export default class SearchBar extends Component {
         });
     };
 
+
+
     handleSubmit = event => {
         event.preventDefault();
-        console.log("submit");
-        console.log(accessToken);
         fetch("https://api.github.com/graphql", {
             method: "POST",
             headers: {
@@ -60,12 +60,14 @@ export default class SearchBar extends Component {
                         issues(first:10){
                           edges{
                             node{
+                              id
                               state
                               bodyText
                               comments(first:10){
                                 edges{
                                   node{
                                     bodyText
+                                    createdAt
                                   }
                                 }
                               }
@@ -79,10 +81,17 @@ export default class SearchBar extends Component {
             })
         })
             .then(res => res.json())
-            .then(json => console.log(json));
+            .then(res => {
+                this.props.updateFields(
+                    this.state.search.split("/")[0],
+                    this.state.search.split("/")[1],
+                    res?.data.repositoryOwner.repository
+                );
+            })
     };
 
     render() {
+        console.log("search state: ", this.state)
         return (
             <Form onSubmit={this.handleSubmit}>
                 <Input

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import styled from "styled-components";
 
@@ -11,12 +12,8 @@ const TabBar = styled(TabList)`
 `;
 
 export default class TabsView extends Component {
-    state = {
-        username: null,
-        repo: null
-    }
-
     render() {
+        console.log("tabs props: ", this.props.state.data)
         return (
             <Tabs>
                 <TabBar>
@@ -26,13 +23,29 @@ export default class TabsView extends Component {
                 </TabBar>
 
                 <TabPanel>
-                    <p>Any content 1</p>
+                    {this.props.state.data?.pullRequests.edges.map((val, i) => {
+                        return (
+                            <p key={i}>{val.node.title}</p>
+                        )
+                    })}
                 </TabPanel>
                 <TabPanel>
-                    <p>Any content 2</p>
+                    {this.props.state.data?.issues.edges.map((val, i) => {
+                        if (val.node.state === "OPEN") {
+                            return (
+                                <Link to={`/${val.node.id}`} key={i}>{val.node.bodyText}</Link>
+                            )
+                        }
+                    })}
                 </TabPanel>
                 <TabPanel>
-                    <p>Any content 3</p>
+                    {this.props.state.data?.issues.edges.map((val, i) => {
+                        if (val.node.state === "CLOSED") {
+                            return (
+                                <Link to={`/${val.node.id}`} key={i}>{val.node.bodyText}</Link>
+                            )
+                        }
+                    })}
                 </TabPanel>
             </Tabs>
         );
