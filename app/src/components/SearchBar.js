@@ -34,8 +34,6 @@ export default class SearchBar extends Component {
         });
     };
 
-
-
     handleSubmit = event => {
         event.preventDefault();
         fetch("https://api.github.com/graphql", {
