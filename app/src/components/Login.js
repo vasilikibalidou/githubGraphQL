@@ -1,26 +1,5 @@
 import React, { Component } from "react";
-import styled from "styled-components";
-
-const Form = styled.form`
-  padding: 10vh 0 5vh 0;
-`;
-
-const Input = styled.input`
-  padding: 2vh;
-  width: 30vw;
-  border: 1px solid gray;
-  border-radius: 5px;
-  font-size: 1em;
-`;
-
-const Button = styled.button`
-  padding: 2vh;
-  font-size: 1em;
-  width: 10vw;
-  border: 1px solid gray;
-  border-radius: 5px;
-`;
-
+import { Form, Input, Button } from "./StyledComponents";
 
 export default class Login extends Component {
     state = {
@@ -39,8 +18,6 @@ export default class Login extends Component {
     };
 
     render() {
-        console.log("login props: ", this.props)
-        console.log("login state: ", this.state)
         return (
             <Form onSubmit={this.handleSubmit}>
                 <Input

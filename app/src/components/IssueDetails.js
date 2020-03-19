@@ -1,25 +1,5 @@
 import React, { Component } from "react";
-import styled from "styled-components";
-
-const Comment = styled.div`
-    padding: 2vh;
-`;
-
-const Text = styled.p`
-    font-size: 1.5em;
-`;
-
-const Created = styled.p`
-font-size: 1em;
-`;
-
-const Input = styled.input`
-  padding: 2vh;
-  width: 30vw;
-  border: 1px solid gray;
-  border-radius: 5px;
-  font-size: 1em;
-`;
+import { Comment, Text, Created, Input } from "./StyledComponents";
 
 export default class IssueDetails extends Component {
     state = {
@@ -33,7 +13,6 @@ export default class IssueDetails extends Component {
     };
 
     render() {
-        console.log("details props: ", this.props.state.data?.issues)
         return (
             <div>
                 {this.props.state.data?.issues.edges.map(val => {

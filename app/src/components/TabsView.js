@@ -1,29 +1,10 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
-import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
-import styled from "styled-components";
+import { Tab, Tabs, TabPanel } from "react-tabs";
+import { TabBar, Result, StyledLink } from "./StyledComponents";
 
-const TabBar = styled(TabList)`
-  list-style-type: none;
-  display: flex;
-  justify-content: space-around;
-  font-size: 2em;
-  font-weight: bold;
-  padding: 2vh;
-`;
-
-const Result = styled.div`
-    padding: 1.5vh;
-    font-size: 1.5em;
-`;
-
-const StyledLink = styled(Link)`
-    text-decoration: none;
-`;
 
 export default class TabsView extends Component {
     render() {
-        console.log("tabs props: ", this.props.state.data)
         return (
             <Tabs>
                 <TabBar>
