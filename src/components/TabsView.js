@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import { Tab, Tabs, TabPanel } from "react-tabs";
-import { TabBar, Result, StyledLink } from "./StyledComponents";
+import { Tabs, TabPanel } from "react-tabs";
+import { StyledTab, TabBar, Result, StyledLink } from "./StyledComponents";
 
 
 export default class TabsView extends Component {
@@ -8,9 +8,9 @@ export default class TabsView extends Component {
         return (
             <Tabs>
                 <TabBar>
-                    <Tab>Pull Requests</Tab>
-                    <Tab>Open Issues</Tab>
-                    <Tab>Closed Issues</Tab>
+                    <StyledTab>Pull Requests</StyledTab>
+                    <StyledTab>Open Issues</StyledTab>
+                    <StyledTab>Closed Issues</StyledTab>
                 </TabBar>
 
                 <TabPanel>

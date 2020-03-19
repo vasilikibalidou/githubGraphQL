@@ -5,6 +5,8 @@ import TabsView from "./components/TabsView";
 import SearchBar from "./components/SearchBar";
 import IssueDetails from "./components/IssueDetails"
 import Login from "./components/Login";
+import ChangeToken from "./components/ChangeToken";
+
 
 class App extends Component {
   state = {
@@ -24,11 +26,18 @@ class App extends Component {
   }
 
   render() {
+    if (this.state.accessToken === "") {
+      return (
+        < div className="App" >
+          <Login state={this.state} updateFields={this.updateFields} />
+        </div>
+      )
+    }
     return (
       < div className="App" >
         <Route exact path="/" render={() => (
           <div>
-            <Login state={this.state} updateFields={this.updateFields} />
+            <ChangeToken state={this.state} updateFields={this.updateFields} />
             <SearchBar state={this.state} updateFields={this.updateFields} />
             <TabsView state={this.state} />
           </div>

@@ -20,6 +20,7 @@ export default class Login extends Component {
     render() {
         return (
             <Form onSubmit={this.handleSubmit}>
+                <h2>Enter you access token</h2>
                 <Input
                     type="password"
                     id="token"
@@ -28,6 +29,7 @@ export default class Login extends Component {
                     value={this.state.token}
                     onChange={this.handleChange}
                 />
+                <br />
                 <Button type="submit">Submit</Button>
             </Form>
         );
