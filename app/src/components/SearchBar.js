@@ -21,8 +21,6 @@ const Button = styled.button`
   border-radius: 5px;
 `;
 
-const accessToken = process.env.REACT_APP_TOKEN;
-
 export default class SearchBar extends Component {
   state = {
     search: ""
