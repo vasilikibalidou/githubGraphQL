@@ -4,16 +4,19 @@ import "./App.css";
 import TabsView from "./components/TabsView";
 import SearchBar from "./components/SearchBar";
 import IssueDetails from "./components/IssueDetails"
+import Login from "./components/Login";
 
 class App extends Component {
   state = {
+    accessToken: "",
     username: "",
     repo: "",
     data: null
   }
 
-  updateFields = (username, repo, data) => {
+  updateFields = (accessToken, username, repo, data) => {
     this.setState({
+      accessToken: accessToken,
       username: username,
       repo: repo,
       data: data
@@ -25,6 +28,7 @@ class App extends Component {
       < div className="App" >
         <Route exact path="/" render={() => (
           <div>
+            <Login state={this.state} updateFields={this.updateFields} />
             <SearchBar state={this.state} updateFields={this.updateFields} />
             <TabsView state={this.state} />
           </div>

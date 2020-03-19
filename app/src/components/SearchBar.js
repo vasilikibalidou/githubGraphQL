@@ -39,7 +39,7 @@ export default class SearchBar extends Component {
     fetch("https://api.github.com/graphql", {
       method: "POST",
       headers: {
-        Authorization: `bearer ${accessToken}`
+        Authorization: `bearer ${this.props.state.accessToken}`
       },
       body: JSON.stringify({
         query: `
@@ -85,11 +85,13 @@ export default class SearchBar extends Component {
       .then(res => res.json())
       .then(res => {
         this.props.updateFields(
+          this.props.state.accessToken,
           this.state.search.split("/")[0],
           this.state.search.split("/")[1],
           res.data?.repositoryOwner?.repository
         )
       })
+      .catch(err => console.log(err));
   };
 
   render() {
