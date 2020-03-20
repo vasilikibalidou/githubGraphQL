@@ -43,6 +43,9 @@ export default class SearchBar extends Component {
                                 edges{
                                   node{
                                     bodyText
+                                    author{
+                                      login
+                                    }
                                     createdAt
                                   }
                                 }

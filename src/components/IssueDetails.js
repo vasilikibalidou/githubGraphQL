@@ -41,7 +41,10 @@ export default class IssueDetails extends Component {
                                         let time = val.node.createdAt.split("T")[1].slice(0, -1);
                                         return (
                                             <Comment key={i}>
-                                                <Text>{val.node.bodyText}</Text>
+                                                <div>
+                                                    <Text>{val.node.bodyText}</Text>
+                                                    <span>  - {val.node.author.login}</span>
+                                                </div>
                                                 <Created>Created at:  {date}, {time}</Created>
                                             </Comment>
                                         )
